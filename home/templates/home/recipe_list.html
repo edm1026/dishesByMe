@@ -1,0 +1,68 @@
+{% extends 'home/base.html' %}
+
+{% block body %}
+    <!-- If user searches and there are recipes -->
+    {% if recipe_list %}
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Recipes</h3>
+            </div>
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Recipe Title</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for recipe in recipe_list %}
+
+                                    <tr>
+                                        <td>{{ recipe.recipeTitle }}</td>
+                                        <td>
+                                            <a href="{% url 'home:detail' recipe.id %}">
+                                                <img src="{{ recipe.recipeImage.url }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;" />
+                                            </a>
+                                            <a href="{% url 'home:detail' recipe.id %}">{{ recipe.recipeTitle }}</a>
+                                        </td>
+
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+         {% else %}
+            <p>No recipes found</p>
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--<h3>Filtered:</h3>-->
+            <!--<div>You searched for: {{ query|escape }} </div>-->
+                <!--{% if query %}-->
+                     <!--<h2>Results for "{{ query|escape }}":</h2>-->
+                     <!--{% if results %}-->
+                         <!--<ul>-->
+                         <!--{% for recipe in results %}-->
+                            <!--<li>{{ recipe|escape }}</li>-->
+                         <!--{% endfor %}-->
+                         <!--</ul>-->
+                         <!--{% else %}-->
+                            <!--<p>No recipes found</p>-->
+                     <!--{% endif %}-->
+                 <!--{% endif %}-->

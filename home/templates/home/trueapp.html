@@ -1,0 +1,98 @@
+
+{% extends 'home/base.html' %}
+{% block body %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static 'home/bootstrap.min.css' %}" />
+<link rel="stylesheet" href="{% static 'home/business-casual.css' %}" />
+
+
+    <div class="brand">Business Casual</div>
+    <div class="address-bar">3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890</div>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">Featured
+                        <strong>appetizer</strong>
+                    </h2>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <img class="img-responsive img-border-left" src="{{recipe.recipeImage.url}}" alt="">
+                </div>
+                <div class="col-md-6">
+                    <p>The restaurant version of this dish that you may know about and have once tried is loaded with cheese, bacon, fat, and grease</p>
+                    <p>The restaurant version of this dish that you may know about and have once tried is loaded with cheese, bacon, fat, and grease.</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+                <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">
+                        <strong>appetizers</strong>
+                    </h2>
+                    <hr>
+                     
+    
+        <h3>Here are all my Recipes:</h3>
+        <!--<ul>-->
+            {% for recipe in all_recipes %}
+            <!-- Listing of recipe -->
+           <!-- <li>-->
+            
+             <div class="col-md-4">
+                    <a href="{% url 'home:detail' recipe.id %}"><img class="img-responsive img-border-left" src="{{recipe.recipeImage.url}}" alt=""></a>
+                    <!--<img src = "{{recipe.recipeImage.url}}" style="width: 80px; height:70px"> -->
+            
+             <h2 class="intro-text text-center">
+                  <strong><a href= "{% url 'home:detail' recipe.id %}">{{ recipe.recipeTitle}}</strong> </a>
+                </h2>
+                <p2>The restaurant version of this dish that you may know about and have once tried is loaded with cheese, bacon, fat, and grease.</p2>
+                
+
+            <!--Edit-->
+            <form action="{% url 'home:recipe-update' recipe.id %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="recipe_id" value="{{recipe.id}}"/>
+                <button type="submit" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </button>
+            </form>
+
+            <!--Delete -->
+            <form action="{% url 'home:recipe-delete' recipe.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="recipe_id" value="{{recipe.id}}"/>
+                <button type="submit" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </form>
+
+                </a> 
+                
+                
+                <!-- </li> -->
+              </div>  
+            {% endfor %}
+            
+       <!-- </ul>-->
+  </div> 
+  
+      <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright &copy; CS3320: Group 6 2016</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block body %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static 'home/bootstrap.min.css' %}" />
+<link rel="stylesheet" href="{% static 'home/business-casual.css' %}" />
+
+<div class="container">
+ <div class="row">
+  <div class="box">
+   <div class="col-lg-12 text-center">
+
+    <div>
+        <div>
+            <div>
+                <div>
+                    <h3>Log In</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-center" role="form" action="{% url 'home:login_user'%}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div>
+                                <label for="id_username">Username:</label>
+                                <input id="id_username" maxlength="20" name="username" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label for="id_password">Password:</label>
+                                <input id="id_password" maxlength="20" name="password" type="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <button type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    Don't have an account? <a href="{% url 'home:register' %}">Click here</a> to register.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        {% load staticfiles %}
+    <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
+    <link rel = "stylesheet" type = "text/css" href="{% static 'home/style.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src = "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+
+    <div class="brand">CS3320: Group 6</div>
+    <div class="address-bar">Analisa | Ester | Joel | Kingsley </div>
+    <div> {% if request.user.is_authenticated %} Welcome '{{request.user.username}}' {%endif%}</div>
+
+
+    <nav class = "navbar navbar-default" role = "navigation">
+    <div class = "container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class = "navbar-brand" href = "{% url 'home:dishesByMe' %}">DishesByMe</a>
+        </div>
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class ="">
+                    <a href = "{% url 'home:dishesByMe' %}">Home</a>
+                </li>
+                <li class ="">
+                    <a href = "{% url 'home:appetizer' %}">Appetizer</a>
+                </li>
+                <li class ="">
+                    <a href="{% url 'home:soupSalad' %}">Soup/Salad</a>
+                </li>
+                <li class ="">
+                    <a href="{% url 'home:entree' %}">Entree</a>
+                </li>
+                <li class ="">
+                    <a href="{% url 'home:dessert' %}">Dessert</a>
+                </li>
+                <li class ="">
+                    <a href="{% url 'home:allRecipes' %}">All Recipes</a>
+                </li>
+
+
+                {% if request.user.is_authenticated %}
+                <li class ="">
+                    <a href = "{% url 'home:recipe-add' %}">Add Recipe</a>
+                </li>
+                <li class ="">
+                    <a href = "{% url 'home:logout_user' %}">Logout</a>
+                </li>
+                {%endif%}
+
+            </ul>
+
+
+        </div>
+
+    </div>
+
+</nav>
+{% block body %}
+    {% if recipes %}
+<!-- If user searches and there are recipes -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Search Results:</h3>
+            </div>
+            <div class="col-sm-12">
+                {% for recipe in recipes %}
+                    {% for recipe.mealType == "Dessert" %}
+                    <td>
+                        <a href="{% url 'home:detail' recipe.id %}">
+                            <img src="{{ recipe.recipeImage.url }}" class="img-responsive" style="width: 150px; float: down; margin-right: 10px;" />
+                        </a>
+                        <h3><a href="{% url 'home:detail' recipe.id %}"><strong>{{ recipe.recipeTitle }}</strong></a></h3>
+                    </td>
+                    {% endfor %}
+                {% endfor %}
+
+            </div>
+        </div>
+         {% else %}
+            <h3>Search Results:</h3>
+            <p>No recipes found</p>
+    {% endif %}
+{% endblock %}

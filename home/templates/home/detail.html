@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        {% load staticfiles %}
+    <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
+    <link rel = "stylesheet" type = "text/css" href="{% static 'home/style.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src = "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+     fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="brand">CS3320: Group 6</div>
+    <div class="address-bar">Analisa | Ester | Joel | Kingsley </div>
+    <div><h3><strong>{% if request.user.is_authenticated %} Welcome '{{request.user.username}}' {%endif%}</strong></h3></div>
+
+
+    <nav class = "navbar navbar-default" role = "navigation">
+    <div class = "container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class = "navbar-brand" href = "{% url 'home:dishesByMe' %}">DishesByMe</a>
+        </div>
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class ="">
+                    <a href = "{% url 'home:dishesByMe' %}">Home</a>
+                </li>
+                <li class ="">
+                    <a href = "{% url 'home:appetizer' %}">Appetizer</a>
+                </li>
+                <li class ="">
+                    <a href="{% url 'home:soupSalad' %}">Soup/Salad</a>
+                </li>
+                <li class ="">
+                    <a href="{% url 'home:entree' %}">Entree</a>
+                </li>
+                <li class ="">
+                    <a href="{% url 'home:dessert' %}">Dessert</a>
+                </li>
+                <li class ="">
+                    <a href="{% url 'home:allRecipes' %}">All Recipes</a>
+                </li>
+
+
+                {% if request.user.is_authenticated %}
+                <li class ="">
+                    <a href = "{% url 'home:recipe-add' %}">Add Recipe</a>
+                </li>
+                <li class ="">
+                    <a href = "{% url 'home:logout_user' %}">Logout</a>
+                </li>
+                {%endif%}
+
+            </ul>
+
+
+        </div>
+
+    </div>
+
+</nav>
+{% block body %}
+
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'home/bootstrap.min.css' %}" />
+<link rel="stylesheet" href="{% static 'home/business-casual.css' %}" />
+
+
+    
+    
+        <div class="container">
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">
+                        <strong>{{recipe.recipeTitle}}</strong>
+                    </h2>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <img class="img-responsive img-border-left" src="{{recipe.recipeImage.url}}" alt="">
+                </div>
+                <div class="col-md-6">
+                                <p2><br>
+                      <br>
+                  Recipe By </p2> <p2><strong>{{recipe.user}}<br>
+                  </strong><br>
+                  </p2>
+                    <p2>{{recipe.description}}</p2>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
+        
+    
+   <!-- Ingredients --> 
+                    <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">
+                        <strong>ingredients</strong>
+                    </h2>
+                    <hr>
+                </div>
+
+    </h1>
+
+    <h3>{{recipe.mealType}}, {{recipe.courseType}}</h3>
+
+    <strong>Ingredients:</strong>
+    <ul>{{recipe.ingredients | linebreaks}}</ul>
+
+    <strong>Directions:</strong>
+    <ul>{{recipe.directions | linebreaks}}</ul>
+    
+                    </div>
+                
+                </div>
+                </div>
+                
+                      <footer>
+        <div class="container">
+            <div class="row">
+            </div>
+                <div class="text-center">
+                <div class="fb-comments" data-href="{{request.build_absolute_url}}" data-numposts="5">
+                </div>
+                <div class="col-lg-12 text-center">
+
+                    <p>Copyright &copy; CS3320: Group 6 2016</p>
+
+            </div>
+        </div>
+    </footer>
+
+{% endblock %}
