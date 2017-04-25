@@ -26,7 +26,7 @@ SECRET_KEY = 'e3*hr70%mdkn27n%^)v3(wzxf-$9+e$gd8(h&_+z&_wuz@)^59'
 #Was True changed to False in order to make live
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [dishesbyme.pythonanywhere.com]
 
 
 # Application definition
