@@ -20,11 +20,16 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^home/', include('home.urls')),
+#urlpatterns = [
+#    url(r'^admin/', admin.site.urls),
+#    url(r'^home/', include('home.urls')),
+#]
 
-]
+urlpatterns = patterns('',
+    url(r'^$', 'mysite.view.home', name='home'),
+    url(r'^home/', include('home.urls')),
+    url(r'^admin/', include('admin.site.urls')),
+)
 
 if settings.DEBUG:
     urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
@@ -36,10 +41,8 @@ from django.conf.urls import patterns, include url
 from django.contrib import admin
 
 urlpatterns = patterns('',
-                       #Examples
-                       #url(r'^$', 'mysite.view.home', name='home'),
-                       #url(r'^blog/', include('blog.urls')),
+    url(r'^$', 'mysite.view.home', name='home'),
     url(r'^home/', include('home.urls')),
-    url(r'admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
 )
 """
