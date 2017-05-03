@@ -27,7 +27,7 @@ from django.views.generic.base import RedirectView
 
 urlpatterns = patterns('',
     url(r'^$', RedirectView.as_view(url='/home/')),  #might need to try the above urlpatterns; 'mysite.view.home', name='home'
-    url(r'^home/', include('home.urls')),
+                       #url(r'^home/', include('home.urls')),
     url(r'^admin/', include('admin.site.urls')),
 )
 
