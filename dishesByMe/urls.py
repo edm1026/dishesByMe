@@ -20,16 +20,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 
-#urlpatterns = [
-#    url(r'^admin/', admin.site.urls),
+urlpatterns = [
+    url(r'^$', RedirectView.as_view(url='/home/')),
+    url(r'^admin/', admin.site.urls),
 #    url(r'^home/', include('home.urls')),
-#]
+]
 
+"""
 urlpatterns = patterns('',
     url(r'^$', RedirectView.as_view(url='/home/')),  #might need to try the above urlpatterns; 'mysite.view.home', name='home'
                        #url(r'^home/', include('home.urls')),
     url(r'^admin/', include('admin.site.urls')),
 )
+"""
 
 if settings.DEBUG:
     urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
